@@ -1,12 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h> // for sleep()
+#include <time.h>
 
 int main (void) {
+    int acttime = time(0);
+    srand(acttime);
+    int randtime = rand();
+
     int diff = 0;
     int tryes = 0;
     int guess;
-    int secretnumber = 10;
+    int secretnumber = randtime % 100;
     double score = 1000;
 
     printf("Welcome to Guess Game!\n");
@@ -42,13 +47,13 @@ int main (void) {
         printf("What's your guess?\n");
         scanf("%d", &guess);
         
+        score = score - (abs(guess - secretnumber));
+
         if (guess == secretnumber) {
             printf("Congratulations!! You guess the secret number!!\n");
             break;
         }
-        if (guess != secretnumber) {
-            score = score - (abs(guess - secretnumber));
-        }
+
         else if (guess < secretnumber) {
             printf("Your guess is less than the secret number. \n");
             continue;
